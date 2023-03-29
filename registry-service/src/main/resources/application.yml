@@ -1,8 +1,8 @@
 server:
-  port: '8070'
+  port: '8761'
 spring:
   application:
-    name: SERVICE-REGISTRY
+    name: REGISTRY-SERVICE
 eureka:
   client:
     register-with-eureka: false
