@@ -14,13 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("")
+@RequestMapping
 public class TicketsController {
 
     @Autowired
     TicketService ticketService;
 
-    @GetMapping("findAll")
+    @GetMapping("/findAll")
     public ResponseEntity<List<TicketDto>> findAll(){
         return new ResponseEntity<List<TicketDto>>(ticketService.findAll(), HttpStatus.OK);
     }
