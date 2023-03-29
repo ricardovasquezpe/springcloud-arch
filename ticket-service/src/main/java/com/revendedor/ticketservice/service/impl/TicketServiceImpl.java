@@ -5,11 +5,13 @@ import com.revendedor.ticketservice.application.dto.UserDto;
 import com.revendedor.ticketservice.application.mapper.TicketMapper;
 import com.revendedor.ticketservice.repository.TicketRepository;
 import com.revendedor.ticketservice.repository.entity.Ticket;
+import com.revendedor.ticketservice.service.interf.APIClient;
 import com.revendedor.ticketservice.service.interf.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,8 +25,14 @@ public class TicketServiceImpl implements TicketService {
     @Autowired
     TicketMapper ticketMapper;
 
+    /*@Autowired
+    RestTemplate restTemplate;*/
+
+    /*@Autowired
+    WebClient webClient;*/
+
     @Autowired
-    RestTemplate restTemplate;
+    APIClient apiClient;
 
     @Override
     public List<TicketDto> findAll() {
@@ -35,10 +43,18 @@ public class TicketServiceImpl implements TicketService {
     public TicketDto findById(int id) {
         Ticket ticket = ticketRepository.findById(id).get();
 
-        ResponseEntity<UserDto> response =
+        /*ResponseEntity<UserDto> response =
                 restTemplate.getForEntity("http://localhost:8080/findById/" + ticket.getUserId(), UserDto.class);
+        UserDto dto = response.getBody();*/
 
-        UserDto dto = response.getBody();
+        /*UserDto dto = webClient.get()
+                .uri("http://localhost:8080/findById/" + ticket.getUserId())
+                .retrieve()
+                .bodyToMono(UserDto.class)
+                .block();*/
+
+        UserDto dto = apiClient.findById(ticket.getUserId());
+
         TicketDto ticketDto = ticketMapper.fromEntityToDto(ticket);
         ticketDto.setUserName(dto.getName());
         return ticketDto;
