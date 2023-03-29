@@ -13,10 +13,10 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Integer id;
-
     @Column(name = "code", length = 45)
     private String code;
-
+    @Column(name = "userId")
+    private Integer userId;
     @Column(name = "createdAt")
     private Instant createdAt;
 }

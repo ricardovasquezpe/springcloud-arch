@@ -7,7 +7,9 @@ import java.time.Instant;
 
 @Data
 public class TicketDto implements Serializable {
-    private Integer id;
-    private String code;
-    private Instant createdAt;
+    public int id;
+    public String code;
+    public int userId;
+    public String userName;
+    public Instant createdAt;
 }
