@@ -8,11 +8,7 @@ import com.revendedor.ticketservice.repository.entity.Ticket;
 import com.revendedor.ticketservice.service.interf.APIClient;
 import com.revendedor.ticketservice.service.interf.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import org.springframework.web.reactive.function.client.WebClient;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,6 +36,14 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
+    /*@HystrixCommand(
+            fallbackMethod = "defaultFindById",
+            commandProperties = {
+                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "10000"),
+                    @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50"),
+                    @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10")
+            }
+    )*/
     public TicketDto findById(int id) {
         Ticket ticket = ticketRepository.findById(id).get();
 
@@ -59,4 +63,12 @@ public class TicketServiceImpl implements TicketService {
         ticketDto.setUserName(dto.getName());
         return ticketDto;
     }
+
+    /*public TicketDto defaultFindById(int id){
+        Ticket ticket = ticketRepository.findById(id).get();
+        TicketDto ticketDto = ticketMapper.fromEntityToDto(ticket);
+        ticketDto.setUserName("");
+
+        return ticketDto;
+    }*/
 }
