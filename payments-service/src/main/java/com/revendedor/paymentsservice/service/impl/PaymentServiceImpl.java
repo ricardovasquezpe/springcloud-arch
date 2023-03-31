@@ -7,12 +7,19 @@ import com.revendedor.paymentsservice.repository.PaymentRepository;
 import com.revendedor.paymentsservice.repository.entity.Payment;
 import com.revendedor.paymentsservice.service.interf.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.KafkaHeaders;
+import org.springframework.messaging.Message;
+import org.springframework.messaging.support.MessageBuilder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class PaymentServiceImpl implements PaymentService {
     @Autowired
     PaymentRepository paymentRepository;
+
+    @Autowired
+    private KafkaTemplate<String, PaymentDto> kafkaTemplate;
 
     @Override
     public PaymentDto create(PaymentCreateRequest r) {
@@ -22,6 +29,15 @@ public class PaymentServiceImpl implements PaymentService {
         p.setPrice(r.getPrice());
 
         Payment newPayment = paymentRepository.save(p);
-        return PaymentMapper.fromEntityToDto(newPayment);
+
+        PaymentDto dto = PaymentMapper.fromEntityToDto(newPayment);
+
+        Message<PaymentDto> message = MessageBuilder
+                .withPayload(dto)
+                .setHeader(KafkaHeaders.TOPIC, "paymentTopic")
+                .build();
+        kafkaTemplate.send(message);
+
+        return dto;
     }
 }
