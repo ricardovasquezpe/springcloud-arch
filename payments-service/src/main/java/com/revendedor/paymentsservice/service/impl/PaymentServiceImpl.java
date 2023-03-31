@@ -1,5 +1,6 @@
 package com.revendedor.paymentsservice.service.impl;
 
+import com.revendedor.basedomains.dto.PaymentEvent;
 import com.revendedor.paymentsservice.api.request.PaymentCreateRequest;
 import com.revendedor.paymentsservice.application.dto.PaymentDto;
 import com.revendedor.paymentsservice.application.mapper.PaymentMapper;
@@ -19,7 +20,7 @@ public class PaymentServiceImpl implements PaymentService {
     PaymentRepository paymentRepository;
 
     @Autowired
-    private KafkaTemplate<String, PaymentDto> kafkaTemplate;
+    private KafkaTemplate<String, PaymentEvent> kafkaTemplate;
 
     @Override
     public PaymentDto create(PaymentCreateRequest r) {
@@ -30,14 +31,18 @@ public class PaymentServiceImpl implements PaymentService {
 
         Payment newPayment = paymentRepository.save(p);
 
-        PaymentDto dto = PaymentMapper.fromEntityToDto(newPayment);
+        PaymentEvent event = new PaymentEvent();
+        event.setId(newPayment.getId());
+        event.setUserId(newPayment.getUserId());
+        event.setTicketId(newPayment.getTicketId());
+        event.setPrice(newPayment.getPrice());
 
-        Message<PaymentDto> message = MessageBuilder
-                .withPayload(dto)
+        Message<PaymentEvent> message = MessageBuilder
+                .withPayload(event)
                 .setHeader(KafkaHeaders.TOPIC, "paymentTopic")
                 .build();
         kafkaTemplate.send(message);
 
-        return dto;
+        return PaymentMapper.fromEntityToDto(newPayment);
     }
 }
