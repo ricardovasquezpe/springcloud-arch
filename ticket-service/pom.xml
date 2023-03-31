@@ -93,6 +93,11 @@
 			<artifactId>spring-cloud-starter-hystrix</artifactId>
 			<version>1.4.7.RELEASE</version>
 		</dependency-->
+		<dependency>
+			<groupId>io.micrometer</groupId>
+			<artifactId>micrometer-registry-prometheus</artifactId>
+			<scope>runtime</scope>
+		</dependency>
 	</dependencies>
 	<dependencyManagement>
 		<dependencies>
