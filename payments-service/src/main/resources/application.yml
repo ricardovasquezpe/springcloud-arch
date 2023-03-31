@@ -1,0 +1,36 @@
+server:
+  port: '8070'
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      # value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  application:
+    name: PAYMENTS-SERVICE
+  datasource:
+    url: 'jdbc:mysql://localhost/rvdor_payments'
+    username: root
+    password: '12345678'
+  jpa:
+    properties:
+      hibernate:
+        jdbc:
+          time_zone: UTC
+      dialect: 'org.hibernate.dialect.MySQL8Dialect'
+    hibernate:
+      ddl-auto: 'update'
+eureka:
+  instance:
+    client:
+      serverUrl:
+        defaultZone: http://localhost:8761/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
