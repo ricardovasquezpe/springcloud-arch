@@ -1,6 +1,6 @@
 package com.revendedor.userservice.api.controller;
 
-import com.revendedor.basedomains.dto.PaymentEvent;
+import com.revendedor.basedomains.application.events.PaymentEvent;
 import com.revendedor.userservice.application.dto.UserDto;
 import com.revendedor.userservice.service.interf.UsersService;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package com.revendedor.basedomains.dto;
+package com.revendedor.basedomains.application.events;
 
 import lombok.Data;
 import lombok.Getter;

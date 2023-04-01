@@ -1,6 +1,6 @@
 package com.revendedor.paymentsservice.service.impl;
 
-import com.revendedor.basedomains.dto.PaymentEvent;
+import com.revendedor.basedomains.application.events.PaymentEvent;
 import com.revendedor.paymentsservice.api.request.PaymentCreateRequest;
 import com.revendedor.paymentsservice.application.dto.PaymentDto;
 import com.revendedor.paymentsservice.application.mapper.PaymentMapper;

@@ -1,6 +1,6 @@
 package com.revendedor.ticketservice.service.interf;
 
-import com.revendedor.ticketservice.application.dto.UserDto;
+import com.revendedor.basedomains.application.dto.UserDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

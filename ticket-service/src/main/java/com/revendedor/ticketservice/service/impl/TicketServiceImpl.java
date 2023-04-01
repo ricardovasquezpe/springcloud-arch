@@ -1,7 +1,7 @@
 package com.revendedor.ticketservice.service.impl;
 
+import com.revendedor.basedomains.application.dto.UserDto;
 import com.revendedor.ticketservice.application.dto.TicketDto;
-import com.revendedor.ticketservice.application.dto.UserDto;
 import com.revendedor.ticketservice.application.mapper.TicketMapper;
 import com.revendedor.ticketservice.repository.TicketRepository;
 import com.revendedor.ticketservice.repository.entity.Ticket;
