@@ -8,6 +8,7 @@ import com.revendedor.ticketservice.repository.entity.Ticket;
 import com.revendedor.ticketservice.service.impl.TicketServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.BDDMockito;
@@ -28,6 +29,7 @@ public class TicketServiceTests {
     private TicketServiceImpl ticketService;
 
     private Ticket ticket;
+    private TicketDto ticketDto;
 
     @BeforeEach
     public void setup(){
@@ -36,17 +38,28 @@ public class TicketServiceTests {
         ticket.setCreatedAt(Instant.now());
         ticket.setCode("DDD");
         ticket.setUserId(3);
+
+        ticketDto = new TicketDto();
+        ticketDto.setCode("DDD");
+        ticketDto.setCreatedAt(Instant.now());
+        ticketDto.setUserId(3);
+
+        TicketDto ticketDtoMapped = new TicketDto();
+        ticketDto.setCode("DDD");
+        ticketDto.setCreatedAt(Instant.now());
+        ticketDto.setUserId(3);
+        ticketDto.setId(1);
+
+
+        Mockito.when(ticketMapper.fromEntityToDto(Mockito.any())).thenReturn(ticketDtoMapped);
     }
 
+    @DisplayName("Unit Test for Save ticket method")
     @Test
     public void givenTicketObject_whenSave_thenReturnTicketObject(){
         Mockito.when(ticketRepository.save(Mockito.any())).thenReturn(ticket);
 
-        TicketDto dto = new TicketDto();
-        dto.setCode("DDD");
-        dto.setCreatedAt(Instant.now());
-        dto.setUserId(3);
-        TicketDto newTicketDto = ticketService.save(dto);
+        TicketDto newTicketDto = ticketService.save(ticketDto);
 
         Assertions.assertThat(newTicketDto).isNotNull();
     }
