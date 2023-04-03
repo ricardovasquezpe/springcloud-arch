@@ -7,6 +7,7 @@ import com.revendedor.ticketservice.repository.TicketRepository;
 import com.revendedor.ticketservice.repository.entity.Ticket;
 import com.revendedor.ticketservice.service.interf.APIClient;
 import com.revendedor.ticketservice.service.interf.TicketService;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -36,14 +37,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    /*@HystrixCommand(
-            fallbackMethod = "defaultFindById",
-            commandProperties = {
-                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "10000"),
-                    @HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50"),
-                    @HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "10")
-            }
-    )*/
+    @CircuitBreaker(name= "${spring.application.name}", fallbackMethod = "defaultFindById")
     public TicketDto findById(int id) {
         Ticket ticket = ticketRepository.findById(id).get();
 
@@ -64,11 +58,10 @@ public class TicketServiceImpl implements TicketService {
         return ticketDto;
     }
 
-    /*public TicketDto defaultFindById(int id){
+    public TicketDto defaultFindById(int id, Exception exception){
         Ticket ticket = ticketRepository.findById(id).get();
         TicketDto ticketDto = ticketMapper.fromEntityToDto(ticket);
-        ticketDto.setUserName("");
-
+        ticketDto.setUserName("ERROR TEST USER NAME");
         return ticketDto;
-    }*/
+    }
 }
