@@ -1,12 +1,15 @@
 package com.revendedor.ticketservice.service.impl;
 
 import com.revendedor.basedomains.application.dto.UserDto;
+import com.revendedor.ticketservice.api.request.CreateTicketRequest;
 import com.revendedor.ticketservice.application.dto.TicketDto;
 import com.revendedor.ticketservice.application.mapper.TicketMapper;
 import com.revendedor.ticketservice.repository.TicketRepository;
 import com.revendedor.ticketservice.repository.entity.Ticket;
 import com.revendedor.ticketservice.service.interf.APIClient;
 import com.revendedor.ticketservice.service.interf.TicketService;
+import com.revendedor.ticketservice.util.exceptions.CustomException;
+import com.revendedor.ticketservice.util.utils.ConvertFormat;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,11 +62,15 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public TicketDto save(TicketDto dto) {
+    public TicketDto save(CreateTicketRequest ctr) {
+        if(ticketRepository.findTicketByCode(ctr.getCode()).isPresent()){
+            throw new CustomException("Error");
+        }
+
         Ticket ticket = new Ticket();
-        ticket.setCode(dto.getCode());
-        ticket.setUserId(dto.getUserId());
-        ticket.setCreatedAt(dto.getCreatedAt());
+        ticket.setCode(ctr.getCode());
+        ticket.setUserId(ctr.getUserId());
+        ticket.setCreatedAt(ConvertFormat.localDateToInstant(ctr.getCreatedAt()));
 
         Ticket newTicket = ticketRepository.save(ticket);
 
