@@ -58,6 +58,19 @@ public class TicketServiceImpl implements TicketService {
         return ticketDto;
     }
 
+    @Override
+    public TicketDto save(TicketDto dto) {
+        Ticket ticket = new Ticket();
+        ticket.setCode(dto.getCode());
+        ticket.setUserId(dto.getUserId());
+        ticket.setCreatedAt(dto.getCreatedAt());
+
+        Ticket newTicket = ticketRepository.save(ticket);
+
+        TicketDto newTicketDto = ticketMapper.fromEntityToDto(newTicket);
+        return newTicketDto;
+    }
+
     public TicketDto defaultFindById(int id, Exception exception){
         Ticket ticket = ticketRepository.findById(id).get();
         TicketDto ticketDto = ticketMapper.fromEntityToDto(ticket);
