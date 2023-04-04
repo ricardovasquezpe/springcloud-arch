@@ -104,7 +104,7 @@ public class TicketServiceTests {
 
     @DisplayName("Unit test for findById method")
     @Test
-    public void givenTicketId_whenFindByIt_thenReturnTicketObject(){
+    public void givenTicketId_whenFindById_thenReturnTicketObject(){
         BDDMockito.given(ticketRepository.findById(Mockito.any())).willReturn(Optional.of(ticket));
         BDDMockito.given(apiClient.findById(Mockito.anyInt())).willReturn(userDto);
         BDDMockito.given(ticketMapper.fromEntityToDto(Mockito.any())).willReturn(ticketDto);
@@ -115,6 +115,7 @@ public class TicketServiceTests {
         Assertions.assertThat(ticketFind.getId()).isEqualTo(ticket.getId());
     }
 
+    @DisplayName("Unit test for deleteById method")
     @Test
     public void givenTicketId_whenDeleteById_thenDeleteTicketObject(){
         int ticketId = 1;
