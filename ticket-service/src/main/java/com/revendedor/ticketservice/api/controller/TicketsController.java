@@ -24,8 +24,9 @@ public class TicketsController {
 
     @GetMapping("/findById/{ticketId}")
     public ResponseEntity<TicketDto> findById(@PathVariable("ticketId") int ticketId){
-        TicketDto dto = ticketService.findById(ticketId);
-        return new ResponseEntity<TicketDto>(dto, HttpStatus.OK);
+        return ticketService.findById(ticketId)
+                .map(dto -> new ResponseEntity<TicketDto>(dto, HttpStatus.OK))
+                .orElse(new ResponseEntity<TicketDto>(HttpStatus.NOT_FOUND));
     }
 
     @PostMapping("/create")

@@ -109,7 +109,7 @@ public class TicketServiceTests {
         BDDMockito.given(apiClient.findById(Mockito.anyInt())).willReturn(userDto);
         BDDMockito.given(ticketMapper.fromEntityToDto(Mockito.any())).willReturn(ticketDto);
 
-        TicketDto ticketFind = ticketService.findById(ticket.getId());
+        TicketDto ticketFind = ticketService.findById(ticket.getId()).get();
 
         Assertions.assertThat(ticketFind).isNotNull();
         Assertions.assertThat(ticketFind.getId()).isEqualTo(ticket.getId());

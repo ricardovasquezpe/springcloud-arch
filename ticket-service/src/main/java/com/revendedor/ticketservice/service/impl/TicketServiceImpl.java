@@ -14,6 +14,7 @@ import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,8 +42,14 @@ public class TicketServiceImpl implements TicketService {
 
     @Override
     @CircuitBreaker(name= "${spring.application.name}", fallbackMethod = "defaultFindById")
-    public TicketDto findById(int id) {
-        Ticket ticket = ticketRepository.findById(id).get();
+    public Optional<TicketDto> findById(int id) {
+        Optional<Ticket> ticketOptional = ticketRepository.findById(id);
+
+        if(ticketOptional.isEmpty()){
+            return Optional.empty();
+        }
+
+        Ticket ticket = ticketOptional.get();
 
         /*ResponseEntity<UserDto> response =
                 restTemplate.getForEntity("http://localhost:8080/findById/" + ticket.getUserId(), UserDto.class);
@@ -58,7 +65,7 @@ public class TicketServiceImpl implements TicketService {
 
         TicketDto ticketDto = ticketMapper.fromEntityToDto(ticket);
         ticketDto.setUserName(dto.getName());
-        return ticketDto;
+        return Optional.of(ticketDto);
     }
 
     @Override
@@ -78,9 +85,8 @@ public class TicketServiceImpl implements TicketService {
     }
 
     @Override
-    public boolean deleteById(int id) {
+    public void deleteById(int id) {
         ticketRepository.deleteById(id);
-        return true;
     }
 
     public TicketDto defaultFindById(int id, Exception exception){
