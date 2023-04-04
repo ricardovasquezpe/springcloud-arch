@@ -10,4 +10,5 @@ public interface TicketService {
     List<TicketDto> findAll();
     TicketDto findById(int id);
     TicketDto save(CreateTicketRequest ctr);
+    boolean deleteById(int id);
 }

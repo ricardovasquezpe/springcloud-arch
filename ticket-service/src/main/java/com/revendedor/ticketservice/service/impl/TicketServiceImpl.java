@@ -77,6 +77,12 @@ public class TicketServiceImpl implements TicketService {
         return ticketMapper.fromEntityToDto(newTicket);
     }
 
+    @Override
+    public boolean deleteById(int id) {
+        ticketRepository.deleteById(id);
+        return true;
+    }
+
     public TicketDto defaultFindById(int id, Exception exception){
         Ticket ticket = ticketRepository.findById(id).get();
         TicketDto ticketDto = ticketMapper.fromEntityToDto(ticket);

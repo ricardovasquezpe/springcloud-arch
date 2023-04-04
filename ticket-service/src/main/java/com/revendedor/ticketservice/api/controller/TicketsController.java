@@ -33,4 +33,10 @@ public class TicketsController {
         TicketDto dto = ticketService.save(ctr);
         return new ResponseEntity<TicketDto>(dto, HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity delete(@PathVariable("id") int id){
+        ticketService.deleteById(id);
+        return new ResponseEntity(null, HttpStatus.OK);
+    }
 }
