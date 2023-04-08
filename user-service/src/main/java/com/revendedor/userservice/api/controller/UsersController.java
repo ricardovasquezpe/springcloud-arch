@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Value;
 
 @RestController
 @RequestMapping
@@ -25,6 +26,12 @@ public class UsersController {
 
     @Autowired
     UsersService usersService;
+
+    @Value("${spring.datasource.url}")
+    private String gitProperty;
+
+    @Value("${config.test}")
+    private String vaultProperty;
 
     @GetMapping("/findAll")
     public ResponseEntity<List<UserDto>> findAll(){
