@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  registry-service:
+    container_name: ms-registry-service
+    restart: always
+    build: ./registry-service/
+    ports:
+      - "8761:8761"
+    networks:
+      - mynet
+  vault-service:
+    image: vault:latest
+    container_name: ms-vault-service
+    restart: always
+    environment:
+      VAULT_ADDR: "http://0.0.0.0:8200"
+      VAULT_DEV_ROOT_TOKEN_ID: "mysecrettoken"
+    ports:
+      - "8200:8200"
+    networks:
+      - mynet
+  config-server:
+    container_name: ms-config-server
+    restart: always
+    build: ./config-server/
+    ports:
+      - "8888:8888"
+    networks:
+      - mynet
+    depends_on:
+      - registry-service
+networks:
+  mynet:
