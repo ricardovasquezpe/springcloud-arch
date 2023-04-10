@@ -30,8 +30,8 @@ public class UsersController {
     @Value("${spring.datasource.url}")
     private String gitProperty;
 
-    @Value("${config.test}")
-    private String vaultProperty;
+    /*@Value("${config.test}")
+    private String vaultProperty;*/
 
     @GetMapping("/findAll")
     public ResponseEntity<List<UserDto>> findAll(){
