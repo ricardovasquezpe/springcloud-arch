@@ -20,10 +20,11 @@ services:
     networks:
       - mynet
   mysql:
-    image: mysql:5.7
+    image: mysql
     restart: always
     volumes:
       - rvdor_users-data:/var/lib/mysql
+      - ./init:/docker-entrypoint-initdb.d
     ports:
       - "3307:3306"
     environment:
@@ -53,6 +54,19 @@ services:
       - config-server
       - registry-service
       - mysql
+  ticket-service:
+    container_name: ms-ticket-service
+    restart: always
+    build: ./ticket-service/
+    ports:
+      - "8090:8090"
+    networks:
+      - mynet
+    depends_on:
+      - config-server
+      - registry-service
+      - mysql
+      - user-service
   api-gateway:
     container_name: ms-api-gateway
     restart: always

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>com.revendedor</groupId>
 	<artifactId>ticket-service</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>ticket-service</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -111,11 +111,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
-		<dependency>
+		<!--dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency-->
 
 		<dependency>
 			<groupId>org.testcontainers</groupId>
