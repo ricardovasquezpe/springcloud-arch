@@ -20,7 +20,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api-gateway" options="-parameters" />
-      <module name="base-domains" options="-parameters" />
+      <module name="base-domains" options="" />
       <module name="config-server" options="-parameters" />
       <module name="payments-service" options="-parameters" />
       <module name="registry-service" options="-parameters" />

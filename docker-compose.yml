@@ -53,6 +53,16 @@ services:
       - config-server
       - registry-service
       - mysql
+  api-gateway:
+    container_name: ms-api-gateway
+    restart: always
+    build: ./api-gateway/
+    ports:
+      - "9191:9191"
+    networks:
+      - mynet
+    depends_on:
+      - registry-service
 networks:
   mynet:
 volumes:
