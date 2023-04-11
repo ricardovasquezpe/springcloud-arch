@@ -1,4 +1,5 @@
 version: '3'
+
 services:
   prometheus:
     image: prom/prometheus
@@ -7,10 +8,19 @@ services:
       - ./env/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - 9090:9090
+    networks:
+      - mynet
+
   grafana:
     image: grafana/grafana
     container_name: grafana
     ports:
       - 3000:3000
+    networks:
+      - mynet
     env_file:
       - ./env/grafana.env
+
+networks:
+  mynet:
+    external: true
