@@ -54,41 +54,41 @@ services:
       - config-server
       - registry-service
       - mysql
-  ticket-service:
-    container_name: ms-ticket-service
-    restart: always
-    build: ./ticket-service/
-    ports:
-      - "8090:8090"
-    networks:
-      - mynet
-    depends_on:
-      - config-server
-      - registry-service
-      - mysql
-      - user-service
-  payments-service:
-    container_name: ms-payments-service
-    restart: always
-    build: ./payments-service/
-    ports:
-      - "8070:8070"
-    networks:
-      - mynet
-    depends_on:
-      - config-server
-      - registry-service
-      - mysql
-  api-gateway:
-    container_name: ms-api-gateway
-    restart: always
-    build: ./api-gateway/
-    ports:
-      - "9191:9191"
-    networks:
-      - mynet
-    depends_on:
-      - registry-service
+#  ticket-service:
+#    container_name: ms-ticket-service
+#    restart: always
+#    build: ./ticket-service/
+#    ports:
+#      - "8090:8090"
+#    networks:
+#      - mynet
+#    depends_on:
+#      - config-server
+#      - registry-service
+#      - mysql
+#      - user-service
+#  payments-service:
+#    container_name: ms-payments-service
+#    restart: always
+#    build: ./payments-service/
+#    ports:
+#      - "8070:8070"
+#    networks:
+#      - mynet
+#    depends_on:
+#      - config-server
+#      - registry-service
+#      - mysql
+#  api-gateway:
+#    container_name: ms-api-gateway
+#    restart: always
+#    build: ./api-gateway/
+#    ports:
+#      - "9191:9191"
+#    networks:
+#      - mynet
+#    depends_on:
+#      - registry-service
 networks:
   mynet:
     external: true
