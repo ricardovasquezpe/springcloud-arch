@@ -20,7 +20,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 @RestController
 @RequestMapping
-@Slf4j
+//@Slf4j
 public class UsersController {
     Logger logger = LoggerFactory.getLogger(UsersController.class);
 
@@ -36,14 +36,14 @@ public class UsersController {
     @GetMapping("/findAll")
     public ResponseEntity<List<UserDto>> findAll(){
         LocalDateTime localDateTime = LocalDateTime.now();
-        log.info("This Logs page findAll " + localDateTime);
+        //log.info("This Logs page findAll " + localDateTime);
         return new ResponseEntity<List<UserDto>>(usersService.findAll(), HttpStatus.OK);
     }
 
     @GetMapping("/findById/{userId}")
     public ResponseEntity<UserDto> findById(@PathVariable("userId") int userId){
         LocalDateTime localDateTime = LocalDateTime.now();
-        log.info("This Logs page findById " + localDateTime);
+        //log.info("This Logs page findById " + localDateTime);
 
         UserDto dto = usersService.findById(userId);
         return new ResponseEntity<UserDto>(dto, HttpStatus.OK);
