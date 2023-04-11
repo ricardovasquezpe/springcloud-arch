@@ -67,6 +67,18 @@ services:
       - registry-service
       - mysql
       - user-service
+  payments-service:
+    container_name: ms-payments-service
+    restart: always
+    build: ./payments-service/
+    ports:
+      - "8070:8070"
+    networks:
+      - mynet
+    depends_on:
+      - config-server
+      - registry-service
+      - mysql
   api-gateway:
     container_name: ms-api-gateway
     restart: always
@@ -79,5 +91,6 @@ services:
       - registry-service
 networks:
   mynet:
+    external: true
 volumes:
   rvdor_users-data:
