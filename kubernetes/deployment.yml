@@ -1,0 +1,27 @@
+# ... Deployment YAML definition
+# eval $(minikube docker-env)
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry-server-deployment
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: registry-server
+  template:
+    metadata:
+      labels:
+        app: registry-server
+    spec:
+      containers:
+        - name: registry-service
+          image: ms-registry-service
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 8761

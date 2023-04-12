@@ -1,0 +1,13 @@
+# ... Service YAML definition
+# minikube service registry-server-service --url
+apiVersion: v1
+kind: Service
+metadata:
+  name: registry-server-service
+spec:
+  selector:
+    app: registry-server
+  ports:
+    - port: 8761
+      targetPort: 8761
+  type: LoadBalancer
