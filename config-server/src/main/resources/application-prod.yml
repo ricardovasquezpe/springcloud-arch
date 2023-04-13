@@ -1,0 +1,30 @@
+server:
+  port: '8888'
+spring:
+  application:
+    name: CONFIG-SERVER
+  cloud:
+    config:
+      server:
+        vault:
+          scheme: http
+          host: vault-service
+          port: 8200
+          authentication: TOKEN
+          token: mysecrettoken
+          kvVersion: 2
+          order: 1
+          profileSeparator: /
+        git:
+          uri: https://github.com/ricardovasquezpe/revendedor-config-server
+          clone-on-start: true
+          default-label: main
+          order: 2
+eureka:
+  instance:
+    client:
+      serverUrl:
+        defaultZone: http://registry-service:8761/eureka
+  client:
+    serviceUrl:
+      defaultZone: http://registry-service:8761/eureka
