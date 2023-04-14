@@ -20,7 +20,6 @@ public class GatewayConfig {
                             f.filter(filter);
                             return f;
                         })
-                        //.filters(f -> f.filter(filter))
                         .uri("lb://ticket-service/"))
                 .route("user-service", r -> r.path("/user-service/**")
                         .filters(f -> {
