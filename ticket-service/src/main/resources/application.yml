@@ -1,33 +1,8 @@
-#server:
-#  port: '8090'
-#spring:
-#  application:
-#    name: TICKET-SERVICE
-#  datasource:
-#    url: 'jdbc:mysql://localhost/rvdor_tickets'
-#    username: root
-#    password: '12345678'
-#  jpa:
-#    properties:
-#      hibernate:
-#        jdbc:
-#          time_zone: UTC
-#      dialect: 'org.hibernate.dialect.MySQL8Dialect'
-#    hibernate:
-#      ddl-auto: 'update'
-#eureka:
-#  instance:
-#    client:
-#      serverUrl:
-#        defaultZone: http://localhost:8761/eureka/
-#management:
-#  endpoints:
-#    web:
-#      exposure:
-#        include: "*"
-
 spring:
   application:
     name: ticket-service
   config:
-    import: "optional:configserver:http://config-server:8888"
+    #import: "optional:configserver:http://config-server:8888"
+    import: "optional:configserver:http://localhost:8888"
+  profiles:
+    active: dev
