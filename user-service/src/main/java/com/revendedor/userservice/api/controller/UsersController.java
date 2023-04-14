@@ -31,6 +31,9 @@ public class UsersController {
     /*@Value("${config.test}")
     private String vaultProperty;*/
 
+    @Value("${server.port}")
+    private String port;
+
     @GetMapping("/findAll")
     public ResponseEntity<List<UserDto>> findAll(){
         LocalDateTime localDateTime = LocalDateTime.now();
@@ -51,6 +54,11 @@ public class UsersController {
     public ResponseEntity<String> test(@RequestHeader(value = "id") String userId,
                                        @RequestHeader(value = "role") String role){
         return new ResponseEntity<String>(userId + " - " + role, HttpStatus.OK);
+    }
+
+    @GetMapping("/which-port")
+    public ResponseEntity<String> whichPort(){
+        return new ResponseEntity<String>("The port: " + port, HttpStatus.OK);
     }
 
     @KafkaListener(topics = "paymentTopic", groupId = "mygroup")
