@@ -11,6 +11,7 @@
         <module name="base-domains" />
         <module name="registry-service" />
         <module name="api-gateway" />
+        <module name="api-gateway-oauth" />
         <module name="user-service" />
         <module name="payments-service" />
         <module name="ticket-service" />
@@ -20,6 +21,7 @@
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="api-gateway" options="-parameters" />
+      <module name="api-gateway-oauth" options="-parameters" />
       <module name="base-domains" options="" />
       <module name="config-server" options="-parameters" />
       <module name="payments-service" options="-parameters" />

@@ -1,0 +1,26 @@
+server:
+  port: '9191'
+spring:
+  application:
+    name: API-GATEWAY
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+eureka:
+  instance:
+    client:
+      serverUrl:
+        defaultZone: http://localhost:8761/eureka
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
+jwt:
+  secret: '123456'
+  token:
+    validity: 18000000
+okta:
+  oauth2:
+    issuer: https://dev-85955185.okta.com/oauth2/default
